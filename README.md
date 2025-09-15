@@ -137,21 +137,50 @@ mkdir -p -m0755 /etc/ssl/certs && curl -k -o /etc/ssl/certs/ca-certificates.crt 
 
 ### Запуск из `/tmp`
 ```bash
+# using wget with SSL
 wget 'https://raw.githubusercontent.com/tavinus/opkg-upgrade/master/opkg-upgrade.sh' -O "/tmp/opkg-upgrade.sh" && chmod 755 "/tmp/opkg-upgrade.sh" && /tmp/opkg-upgrade.sh
+
+# using wget WITHOUT SSL
+wget --no-check-certificate 'https://raw.githubusercontent.com/tavinus/opkg-upgrade/master/opkg-upgrade.sh' -O "/tmp/opkg-upgrade.sh" && chmod 755 "/tmp/opkg-upgrade.sh" && /tmp/opkg-upgrade.sh
+
+# using curl with SSL
+curl -L 'https://raw.githubusercontent.com/tavinus/opkg-upgrade/master/opkg-upgrade.sh' -o "/tmp/opkg-upgrade.sh" && chmod 755 "/tmp/opkg-upgrade.sh" && /tmp/opkg-upgrade.sh
+
+# using curl WITHOUT SSL
+curl -k -L 'https://raw.githubusercontent.com/tavinus/opkg-upgrade/master/opkg-upgrade.sh' -o "/tmp/opkg-upgrade.sh" && chmod 755 "/tmp/opkg-upgrade.sh" && /tmp/opkg-upgrade.sh
 ```
 
 ### Локальная установка в текущий каталог
+Запустите с помощью ./opkg-upgrade.sh после загрузки
 ```bash
+# using wget with SSL
 wget 'https://raw.githubusercontent.com/tavinus/opkg-upgrade/master/opkg-upgrade.sh' -O "opkg-upgrade.sh" && chmod 755 "opkg-upgrade.sh"
+
+# using wget WITHOUT SSL
+wget --no-check-certificate 'https://raw.githubusercontent.com/tavinus/opkg-upgrade/master/opkg-upgrade.sh' -O "opkg-upgrade.sh" && chmod 755 "opkg-upgrade.sh"
+
+# using curl with SSL
+curl -L 'https://raw.githubusercontent.com/tavinus/opkg-upgrade/master/opkg-upgrade.sh' -o "opkg-upgrade.sh" && chmod 755 "opkg-upgrade.sh"
+
+# using curl WITHOUT SSL
+curl -k -L 'https://raw.githubusercontent.com/tavinus/opkg-upgrade/master/opkg-upgrade.sh' -o "opkg-upgrade.sh" && chmod 755 "opkg-upgrade.sh"
 ```
 
-### Системная установка в `/usr/sbin`
+### Системная установка в `/usr/sbin/opkg-upgrade (без расширения .sh)`:
+Запустите с помощью opkg-upgrade после загрузки
 ```bash
+# using wget with SSL
 wget 'https://raw.githubusercontent.com/tavinus/opkg-upgrade/master/opkg-upgrade.sh' -O "/usr/sbin/opkg-upgrade" && chmod 755 "/usr/sbin/opkg-upgrade"
+
+# using wget WITHOUT SSL
+wget --no-check-certificate 'https://raw.githubusercontent.com/tavinus/opkg-upgrade/master/opkg-upgrade.sh' -O "/usr/sbin/opkg-upgrade" && chmod 755 "/usr/sbin/opkg-upgrade"
+
+# using curl with SSL
+curl -L 'https://raw.githubusercontent.com/tavinus/opkg-upgrade/master/opkg-upgrade.sh' -o "/usr/sbin/opkg-upgrade" && chmod 755 "/usr/sbin/opkg-upgrade"
+
+# using curl WITHOUT SSL
+curl -k -L 'https://raw.githubusercontent.com/tavinus/opkg-upgrade/master/opkg-upgrade.sh' -o "/usr/sbin/opkg-upgrade" && chmod 755 "/usr/sbin/opkg-upgrade"
 ```
-
----
-
 ## 🔗 Полезные ссылки
 
 - [OpenWRT Wiki — wget SSL certs](https://wiki.openwrt.org/doc/howto/wget-ssl-certs)  
