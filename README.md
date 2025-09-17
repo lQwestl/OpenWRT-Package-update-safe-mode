@@ -114,7 +114,8 @@ No packages to install!
 ```bash
 git clone https://github.com/lQwestl/opkg-upgrade.git
 cd opkg-upgrade
-./opkg-upgrade.sh -i
+chmod +x opkg-upgrade-ru.sh
+./opkg-upgrade-ru.sh -i
 ```
 
 ### Через curl/wget
