@@ -112,7 +112,7 @@ No packages to install!
 
 ### Через Git
 ```bash
-git clone git://github.com/tavinus/opkg-upgrade.git
+git clone https://github.com/lQwestl/opkg-upgrade.git
 cd opkg-upgrade
 ./opkg-upgrade.sh -i
 ```
