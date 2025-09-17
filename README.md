@@ -22,46 +22,46 @@
 ```bash
 root@OpenWrt:~# opkg-upgrade --help
 
-Simple OPKG Updater v0.4.1
+Простой инструмент для обновления OPKG v0.4.1
 
-Usage: opkg-upgrade [options]
+Использование: opkg-upgrade [параметры]
 
-Options:
-  -V, --version         Show program name and version and exits
-  -h, --help            Show this help screen and exits
-  -i, --install [dir]   Install opkg-upgrade to [dir] or /usr/sbin
-                        Leave [dir] empty for default (/usr/sbin)
-  -u, --upgrade-check   Returns SUCCESS if there are updates available
-                        Quiet execution, returns 0 or 1
-  -l, --list-upgrades   Prints the list of available updates and exits
-  -e, --email-list      Prints the list of updates in html email format
-                        Includes subject, mime type and html formated data
-  -s, --ssmtp <email>   Use the system's ssmtp to send update reports
-                        You need to install and configure ssmtp beforehand
-  -m, --msmtp <email>   Use the system's msmtp to send update reports
-                        You need to install and configure msmtp beforehand
-  -a, --always-send     Send e-mail even if there are no updates
-                        By default e-mails are only sent when updates are available
-  -t, --text-only       Send e-mail in plain text format.
-                        By default, e-mails are sent in html format.
-  -n, --no-opkg-update  Skip opkg update at the beginning,
-                        may not find packages if not up to date
-  -f, --force           Do not ask for confirmation,
-                        will update everything available
+Параметры:
+  -V, --version         Показать название и версию программы и завершить работу
+  -h, --help            Показать это справочное окно и завершить работу
+  -i, --install [dir]   Установить opkg-upgrade в [dir] или /usr/sbin
+                        Оставьте [dir] пустым для использования по умолчанию (/usr/sbin)
+  -u, --upgrade-check   Возвращает SUCCESS, если доступны обновления
+                        Тихое выполнение, возвращает 0 или 1
+  -l, --list-upgrades   Выводит список доступных обновлений и завершает работу
+  -e, --email-list      Выводит список обновлений в формате HTML для отправки по электронной почте
+                        Включает тему, тип MIME и данные в формате HTML
+  -s, --ssmtp <email>   Используйте системный ssmtp для отправки отчётов об обновлениях
+                        Вам нужно предварительно установить и настроить ssmtp
+  -m, --msmtp <email>   Используйте системный msmtp для отправки отчётов об обновлениях
+                        Вам нужно предварительно установить и настроить msmtp
+  -a, --always-send     Отправляйте электронное письмо, даже если обновлений нет
+                        По умолчанию электронные письма отправляются только при наличии обновлений
+  -t, --отправка электронной почты только в текстовом формате.
+                        По умолчанию электронные письма отправляются в формате html.
+  -n, --no-opkg-update Пропустить обновление opkg в начале,
+если оно не обновлено, пакеты могут не обнаруживаться.
+  -f, --force Не запрашивает подтверждения,
+обновит все доступные
 
-Notes:
-  - Short options should not be grouped. You must pass each parameter on its own.
-  - You must have a working ssmtp or msmtp install to use the email functionality.
-    Make sure you can send e-mails from it before trying from opkg-upgrade.
+Записи:
+  - Короткие варианты не следует группировать. Каждый параметр необходимо указывать отдельно.
+  - Для использования функций электронной почты необходимо установить ssmtp или msmtp.
+    Прежде чем пытаться использовать opkg-upgrade, убедитесь, что вы можете отправлять электронные письма.
 
-Examples:
-  opkg-upgrade -n -f      # run without updating listings and asking for upgrade
-  opkg-upgrade --install  # install to /usr/sbin/opkg-upgrade
-  opkg-upgrade -l         # just print upgrades available
-  opkg-upgrade -e         # just print html formatted email
-  opkg-upgrade -s 'mail@example.com'    # mail upgrade report if have updates
-  opkg-upgrade -a -m 'mail@example.com' # mail upgrade report even if NO updates
-  opkg-upgrade -u && echo 'upgrades are available' || echo 'no upgrades available'
+ Примеры:
+  opkg-upgrade -n -f      # запуск без обновления списков и запроса на обновление
+  opkg-upgrade --install  # установка в /usr/sbin/opkg-upgrade
+  opkg-upgrade -l         # просто выводит список доступных обновлений
+  opkg-upgrade -e         # просто выводит электронное письмо в формате HTML
+  opkg-upgrade -s 'mail@example.com'    # отправляет отчёт об обновлении по электронной почте, если есть обновления
+  opkg-upgrade -a -m 'mail@example.com' # отправляет отчёт об обновлении по электронной почте, даже если обновлений нет
+  opkg-upgrade -u && echo 'доступны обновления' || echo 'обновлений нет'
 ```
 
 ---
