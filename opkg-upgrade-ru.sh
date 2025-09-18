@@ -161,6 +161,13 @@ print_info_txt() {
 # Красиво выводит списки пакетов в текстовом формате
 print_packs_txt() {
     echo -ne "$PACKS" | awk '
+function repeat(str, num) {
+    result = ""
+    for (i = 1; i <= num; i++) {
+        result = result str
+    }
+    return result
+}
 BEGIN {
     j = 1
     min_w1 = 7; min_w2 = 12; min_w3 = 12
@@ -178,18 +185,28 @@ END {
     w2 = (max2 > min_w2 ? max2 : min_w2)
     w3 = (max3 > min_w3 ? max3 : min_w3)
     
-    total = w1 + w2 + w3 + 13
-    border = sprintf("%*s", total, ""); gsub(/ /, "─", border)
+    # Создаем границы
+    border1 = repeat("─", w1)
+    border2 = repeat("─", w2)
+    border3 = repeat("─", w3)
+    total_border = repeat("─", w1 + w2 + w3 + 13)
     
-    print "┌" border "┐"
-    printf "│ %3s │ %-*s │ %-*s │ %-*s │\n", "#", w1, "Пакет", w2, "Текущий", w3, "Обновление"
-    print "├" border "┤"
+    # Верхняя граница
+    print "┌" total_border "┐"
     
+    # Заголовок
+    printf "│ %3s │ %-" w1 "s │ %-" w2 "s │ %-" w3 "s │\n", "#", "Пакет", "Текущий", "Обновление"
+    
+    # Разделитель
+    print "├" total_border "┤"
+    
+    # Данные
     for (i = 1; i < j; i++) {
-        printf "│ %3d │ %-*s │ %-*s │ %-*s │\n", i, w1, pkg[i], w2, cur[i], w3, upd[i]
+        printf "│ %3d │ %-" w1 "s │ %-" w2 "s │ %-" w3 "s │\n", i, pkg[i], cur[i], upd[i]
     }
     
-    print "└" border "┘"
+    # Нижняя граница
+    print "└" total_border "┘"
 }'
 }
 
