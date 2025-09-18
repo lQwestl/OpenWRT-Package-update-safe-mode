@@ -160,53 +160,13 @@ print_info_txt() {
 
 # Красиво выводит списки пакетов в текстовом формате
 print_packs_txt() {
-    echo -ne "$PACKS" | awk '
-function repeat(str, num) {
-    result = ""
-    for (i = 1; i <= num; i++) {
-        result = result str
-    }
-    return result
-}
-BEGIN {
-    j = 1
-    min_w1 = 7; min_w2 = 12; min_w3 = 12
-}
-{
-    pkg[j] = $1; cur[j] = $3; upd[j] = $5
-    w1 = length($1); w2 = length($3); w3 = length($5)
-    if (w1 > max1) max1 = w1
-    if (w2 > max2) max2 = w2
-    if (w3 > max3) max3 = w3
-    j++
-}
-END {
-    w1 = (max1 > min_w1 ? max1 : min_w1)
-    w2 = (max2 > min_w2 ? max2 : min_w2)
-    w3 = (max3 > min_w3 ? max3 : min_w3)
-    
-    # Создаем отдельные границы для каждого столбца
-    border1 = repeat("─", w1)
-    border2 = repeat("─", w2)
-    border3 = repeat("─", w3)
-    
-    # Верхняя граница
-    printf "┌─────┬─%s─┬─%s─┬─%s─┐\n", border1, border2, border3
-    
-    # Заголовок
-    printf "│ %3s │ %-*s │ %-*s │ %-*s │\n", "#", w1, "Пакет", w2, "Текущий", w3, "Обновление"
-    
-    # Разделитель
-    printf "├─────┼─%s─┼─%s─┼─%s─┤\n", border1, border2, border3
-    
-    # Данные
-    for (i = 1; i < j; i++) {
-        printf "│ %3d │ %-*s │ %-*s │ %-*s │\n", i, w1, pkg[i], w2, cur[i], w3, upd[i]
-    }
-    
-    # Нижняя граница
-    printf "└─────┴─%s─┴─%s─┴─%s─┘\n", border1, border2, border3
-}'
+    echo "Пакеты доступные для обновления: $PACKS_COUNT"
+    echo ""
+    echo "+-----+------------------------------------------+----------------------+----------------------+"
+    echo "|  #  | Пакет                                    | Текущий              | Обновление           |"
+    echo "+-----+------------------------------------------+----------------------+----------------------+"
+    echo -ne "$PACKS" | awk '{printf "| %3d | %-40s | %-20s | %-20s |\n", NR, $1, $3, $5}'
+    echo "+-----+------------------------------------------+----------------------+----------------------+"
 }
 
 ### Разбор параметров командной строки
