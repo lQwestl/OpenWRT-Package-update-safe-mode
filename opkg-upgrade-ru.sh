@@ -170,8 +170,8 @@ max[1]=(length($1)>max[1]?length($1):max[1]);
 max[2]=(length($3)>max[2]?length($3):max[2]); 
 max[3]=(length($5)>max[3]?length($5):max[3]);
 max[1]=(max[1]>=7?max[1]:7); 
-max[2]=(max[2]>=7?max[2]:7); 
-max[3]=(max[3]>=7?max[3]:7); 
+max[2]=(max[2]>=9?max[2]:9);  # Увеличено для "Текущий"
+max[3]=(max[3]>=9?max[3]:9);  # Увеличено для "Обновление"
 } 
 function div(){ printf "+-----+%s+%s+%s+\n", rep("-", max[1]+2), rep("-", max[2]+2), rep("-", max[3]+2) }
 function head() { printf "| %3s | %-" max[1] "s | %-" max[2] "s | %-" max[3] "s |\n", "#", "Пакет", "Текущий", "Обновление" }
