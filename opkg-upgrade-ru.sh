@@ -161,54 +161,35 @@ print_info_txt() {
 # Красиво выводит списки пакетов в текстовом формате
 print_packs_txt() {
     echo -ne "$PACKS" | awk '
-function rep(c, n) { 
-    return sprintf("%" n "s", ""); gsub(/ /, c, s); return s 
-}
-BEGIN { 
+BEGIN {
     j = 1
-    # Минимальные ширины для русских заголовков
-    min_widths[1] = 7    # Пакет
-    min_widths[2] = 12   # Текущий  
-    min_widths[3] = 12   # Обновление
+    min_w1 = 7; min_w2 = 12; min_w3 = 12
 }
-NR > 0 {
-    l[j, 1] = $1
-    l[j, 2] = $3
-    l[j, 3] = $5
+{
+    pkg[j] = $1; cur[j] = $3; upd[j] = $5
+    w1 = length($1); w2 = length($3); w3 = length($5)
+    if (w1 > max1) max1 = w1
+    if (w2 > max2) max2 = w2
+    if (w3 > max3) max3 = w3
     j++
-    
-    # Определяем максимальные ширины
-    max_w[1] = (length($1) > max_w[1] ? length($1) : max_w[1])
-    max_w[2] = (length($3) > max_w[2] ? length($3) : max_w[2])
-    max_w[3] = (length($5) > max_w[3] ? length($5) : max_w[3])
 }
 END {
-    # Устанавливаем финальные ширины (не менее минимальных)
-    for (i = 1; i <= 3; i++) {
-        width[i] = (max_w[i] > min_widths[i] ? max_w[i] : min_widths[i])
-    }
+    w1 = (max1 > min_w1 ? max1 : min_w1)
+    w2 = (max2 > min_w2 ? max2 : min_w2)
+    w3 = (max3 > min_w3 ? max3 : min_w3)
     
-    # Верхняя граница
-    printf "+-----+-%s-+-%s-+-%s-+\n", 
-           rep("-", width[1]), rep("-", width[2]), rep("-", width[3])
+    total = w1 + w2 + w3 + 13
+    border = sprintf("%*s", total, ""); gsub(/ /, "─", border)
     
-    # Заголовок
-    printf "| %3s | %-*s | %-*s | %-*s |\n", 
-           "#", width[1], "Пакет", width[2], "Текущий", width[3], "Обновление"
+    print "┌" border "┐"
+    printf "│ %3s │ %-*s │ %-*s │ %-*s │\n", "#", w1, "Пакет", w2, "Текущий", w3, "Обновление"
+    print "├" border "┤"
     
-    # Разделитель после заголовка
-    printf "+-----+-%s-+-%s-+-%s-+\n", 
-           rep("-", width[1]), rep("-", width[2]), rep("-", width[3])
-    
-    # Данные
     for (i = 1; i < j; i++) {
-        printf "| %3d | %-*s | %-*s | %-*s |\n", 
-               i, width[1], l[i, 1], width[2], l[i, 2], width[3], l[i, 3]
+        printf "│ %3d │ %-*s │ %-*s │ %-*s │\n", i, w1, pkg[i], w2, cur[i], w3, upd[i]
     }
     
-    # Нижняя граница
-    printf "+-----+-%s-+-%s-+-%s-+\n", 
-           rep("-", width[1]), rep("-", width[2]), rep("-", width[3])
+    print "└" border "┘"
 }'
 }
 
