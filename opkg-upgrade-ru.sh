@@ -161,21 +161,55 @@ print_info_txt() {
 # Красиво выводит списки пакетов в текстовом формате
 print_packs_txt() {
     echo -ne "$PACKS" | awk '
-function rep(c, n){ s=sprintf("%" n "s",""); gsub(/ /,c,s); return s }
-BEGIN{ j=1; } NR>0{
-l[j, 1]=($1); 
-l[j, 2]=($3); 
-l[j++, 3]=($5);  
-max[1]=(length($1)>max[1]?length($1):max[1]); 
-max[2]=(length($3)>max[2]?length($3):max[2]); 
-max[3]=(length($5)>max[3]?length($5):max[3]);
-max[1]=(max[1]>=7?max[1]:7); 
-max[2]=(max[2]>=12?max[2]:12);  # Увеличено для "Текущий" (8 символов)
-max[3]=(max[3]>=12?max[3]:12);  # Увеличено для "Обновление" (10 символов)
-} 
-function div(){ printf "+-----+%s+%s+%s+\n", rep("-", max[1]+2), rep("-", max[2]+2), rep("-", max[3]+2) }
-function head() { printf "| %3s | %-" max[1] "s | %-" max[2] "s | %-" max[3] "s |\n", "#", "Пакет", "Текущий", "Обновление" }
-END {div() ; head() ; div() ; for (i=1; i<=NR; i++) printf "| %3d | %-" max[1] "s | %-" max[2] "s | %-" max[3] "s |\n", i, l[i, 1], l[i, 2], l[i, 3]; div()}'
+function rep(c, n) { 
+    return sprintf("%" n "s", ""); gsub(/ /, c, s); return s 
+}
+BEGIN { 
+    j = 1
+    # Минимальные ширины для русских заголовков
+    min_widths[1] = 7    # Пакет
+    min_widths[2] = 12   # Текущий  
+    min_widths[3] = 12   # Обновление
+}
+NR > 0 {
+    l[j, 1] = $1
+    l[j, 2] = $3
+    l[j, 3] = $5
+    j++
+    
+    # Определяем максимальные ширины
+    max_w[1] = (length($1) > max_w[1] ? length($1) : max_w[1])
+    max_w[2] = (length($3) > max_w[2] ? length($3) : max_w[2])
+    max_w[3] = (length($5) > max_w[3] ? length($5) : max_w[3])
+}
+END {
+    # Устанавливаем финальные ширины (не менее минимальных)
+    for (i = 1; i <= 3; i++) {
+        width[i] = (max_w[i] > min_widths[i] ? max_w[i] : min_widths[i])
+    }
+    
+    # Верхняя граница
+    printf "+-----+-%s-+-%s-+-%s-+\n", 
+           rep("-", width[1]), rep("-", width[2]), rep("-", width[3])
+    
+    # Заголовок
+    printf "| %3s | %-*s | %-*s | %-*s |\n", 
+           "#", width[1], "Пакет", width[2], "Текущий", width[3], "Обновление"
+    
+    # Разделитель после заголовка
+    printf "+-----+-%s-+-%s-+-%s-+\n", 
+           rep("-", width[1]), rep("-", width[2]), rep("-", width[3])
+    
+    # Данные
+    for (i = 1; i < j; i++) {
+        printf "| %3d | %-*s | %-*s | %-*s |\n", 
+               i, width[1], l[i, 1], width[2], l[i, 2], width[3], l[i, 3]
+    }
+    
+    # Нижняя граница
+    printf "+-----+-%s-+-%s-+-%s-+\n", 
+           rep("-", width[1]), rep("-", width[2]), rep("-", width[3])
+}'
 }
 
 ### Разбор параметров командной строки
