@@ -185,28 +185,27 @@ END {
     w2 = (max2 > min_w2 ? max2 : min_w2)
     w3 = (max3 > min_w3 ? max3 : min_w3)
     
-    # Создаем границы
+    # Создаем отдельные границы для каждого столбца
     border1 = repeat("─", w1)
     border2 = repeat("─", w2)
     border3 = repeat("─", w3)
-    total_border = repeat("─", w1 + w2 + w3 + 13)
     
     # Верхняя граница
-    print "┌" total_border "┐"
+    printf "┌─────┬─%s─┬─%s─┬─%s─┐\n", border1, border2, border3
     
     # Заголовок
-    printf "│ %3s │ %-" w1 "s │ %-" w2 "s │ %-" w3 "s │\n", "#", "Пакет", "Текущий", "Обновление"
+    printf "│ %3s │ %-*s │ %-*s │ %-*s │\n", "#", w1, "Пакет", w2, "Текущий", w3, "Обновление"
     
     # Разделитель
-    print "├" total_border "┤"
+    printf "├─────┼─%s─┼─%s─┼─%s─┤\n", border1, border2, border3
     
     # Данные
     for (i = 1; i < j; i++) {
-        printf "│ %3d │ %-" w1 "s │ %-" w2 "s │ %-" w3 "s │\n", i, pkg[i], cur[i], upd[i]
+        printf "│ %3d │ %-*s │ %-*s │ %-*s │\n", i, w1, pkg[i], w2, cur[i], w3, upd[i]
     }
     
     # Нижняя граница
-    print "└" total_border "┘"
+    printf "└─────┴─%s─┴─%s─┴─%s─┘\n", border1, border2, border3
 }'
 }
 
