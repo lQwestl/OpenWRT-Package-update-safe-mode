@@ -44,6 +44,13 @@ chmod +x opkg-upgrade.sh
 cp opkg-upgrade.sh /usr/sbin/opkg-upgrade
 chmod +x /usr/sbin/opkg-upgrade
 ```
+### Клонируйте его в текущий каталог и используйте опцию `-i`, чтобы установить его в `/usr/sbin/opkg-upgrade`:
+```bash
+git clone https://github.com/lQwestl/opkg-upgrade.git
+cd opkg-upgrade
+chmod +x opkg-upgrade.sh
+./opkg-upgrade.sh -i
+```
 
 ## Основные возможности
 
