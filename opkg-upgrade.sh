@@ -9,11 +9,11 @@
 
 
 ### Инициализация
-OPKGUPVERSION="0.4.1"
+OPKGUPVERSION="1.0.0"
 OPKGBIN="$(command -v opkg 2>/dev/null)"
 SSMTPBIN="$(command -v ssmtp 2>/dev/null)"
 MSMTPBIN="$(command -v msmtp 2>/dev/null)"
-BANNERSTRING="Simple OPKG Updater v$OPKGUPVERSION"
+BANNERSTRING="Утилита для обновления пакетов OpenWrt с поддержкой email уведомлений и различных режимов работы. v$OPKGUPVERSION"
 TIMESTAMP="$(date '+%Y/%m/%d %H:%M:%S' 2>/dev/null)"
 OPKGUP_INSTALL_DIR='/usr/sbin'
 OPENWRT_RELEASE="/etc/openwrt_release"
